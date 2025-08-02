@@ -204,7 +204,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/components/Shadcn/**/*.{ts,tsx}'],
+    files: ['**/components/shadcn/**/*.{ts,tsx}'],
     rules: {
       'react/boolean-prop-naming': 'off',
     },
