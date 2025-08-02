@@ -1,6 +1,9 @@
 export { Alert, AlertTitle, AlertDescription } from './alert'
+
 export { Badge } from './badge'
+
 export { Button } from './button'
+
 export {
   Card,
   CardHeader,
@@ -10,8 +13,11 @@ export {
   CardDescription,
   CardContent,
 } from './card'
+
 export { Input } from './input'
+
 export { Label } from './label'
+
 export {
   Select,
   SelectContent,
@@ -24,3 +30,15 @@ export {
   SelectTrigger,
   SelectValue,
 } from './select'
+
+export {
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+} from './form'
+
+export { Avatar, AvatarImage, AvatarFallback } from './avatar'
