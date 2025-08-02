@@ -10,7 +10,10 @@ import prettierConfig from 'eslint-config-prettier'
 import unusedImportsPlugin from 'eslint-plugin-unused-imports'
 
 const reactRules = {
-  'react/boolean-prop-naming': ['error', { rule: '^(is|has|can|should)[A-Z]([A-Za-z0-9]?)+' }],
+  'react/boolean-prop-naming': [
+    'error',
+    { rule: '^(is|has|can|should)[A-Z]([A-Za-z0-9]?)+' },
+  ],
   'react/hook-use-state': 'error',
   'react/jsx-boolean-value': 'error',
   'react/jsx-fragments': ['error', 'syntax'],
@@ -22,9 +25,9 @@ const reactRules = {
     'error',
     {
       namedComponents: 'arrow-function',
-      unnamedComponents: 'arrow-function'
-    }
-  ]
+      unnamedComponents: 'arrow-function',
+    },
+  ],
 }
 
 const typescriptRules = {
@@ -33,21 +36,21 @@ const typescriptRules = {
     {
       prefer: 'type-imports',
       fixStyle: 'inline-type-imports',
-      disallowTypeAnnotations: true
-    }
+      disallowTypeAnnotations: true,
+    },
   ],
   '@typescript-eslint/no-import-type-side-effects': 'error',
   '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
   '@typescript-eslint/consistent-type-assertions': [
     'error',
-    { assertionStyle: 'as', objectLiteralTypeAssertions: 'never' }
+    { assertionStyle: 'as', objectLiteralTypeAssertions: 'never' },
   ],
   '@typescript-eslint/consistent-type-exports': [
     'error',
     {
-      fixMixedExportsWithInlineTypeSpecifier: true
-    }
-  ]
+      fixMixedExportsWithInlineTypeSpecifier: true,
+    },
+  ],
 }
 
 const codeStyleRules = {
@@ -59,58 +62,76 @@ const codeStyleRules = {
         named: true,
         defaultFrom: false,
         namedFrom: false,
-        namespaceFrom: true
-      }
-    }
+        namespaceFrom: true,
+      },
+    },
   ],
   'no-restricted-syntax': [
     'error',
     {
-      selector: 'ExportAllDeclaration[exportKind!="type"][source.value!=/\\.types?$/]',
-      message: 'Use named exports instead of export *. Only allowed for types or from .type files'
-    }
+      selector:
+        'ExportAllDeclaration[exportKind!="type"][source.value!=/\\.types?$/]',
+      message:
+        'Use named exports instead of export *. Only allowed for types or from .type files',
+    },
   ],
-  'perfectionist/sort-interfaces': ['error', {
-    newlinesBetween: 'never',
-  }],
-  'perfectionist/sort-objects': [
-    'error', {
+  'perfectionist/sort-interfaces': [
+    'error',
+    {
       newlinesBetween: 'never',
-    }
+    },
   ],
-  'perfectionist/sort-jsx-props': ['error', {
-    newlinesBetween: 'never',
-  }],
-  'perfectionist/sort-enums': ['error', {
-    newlinesBetween: 'never',
-  }],
-  'perfectionist/sort-imports': ['error', {
-    internalPattern: ['^@/(.*)$'],
-    groups: [
-      'react',
-      ['builtin', 'external'],
-      'internal-type',
-      'internal',
-      ['parent-type', 'sibling-type', 'index-type'],
-      ['parent', 'sibling', 'index'],
-      'object',
-      'unknown',
-    ],
-    customGroups: {
-      value: {
-        react: ['^react$', '^react-.+'],
+  'perfectionist/sort-objects': [
+    'error',
+    {
+      newlinesBetween: 'never',
+    },
+  ],
+  'perfectionist/sort-jsx-props': [
+    'error',
+    {
+      newlinesBetween: 'never',
+    },
+  ],
+  'perfectionist/sort-enums': [
+    'error',
+    {
+      newlinesBetween: 'never',
+    },
+  ],
+  'perfectionist/sort-imports': [
+    'error',
+    {
+      internalPattern: ['^@/(.*)$'],
+      groups: [
+        'react',
+        ['builtin', 'external'],
+        'internal-type',
+        'internal',
+        ['parent-type', 'sibling-type', 'index-type'],
+        ['parent', 'sibling', 'index'],
+        'object',
+        'unknown',
+      ],
+      customGroups: {
+        value: {
+          react: ['^react$', '^react-.+'],
+        },
+        type: {
+          react: ['^react$', '^react-.+'],
+        },
       },
-      type: {
-        react: ['^react$', '^react-.+'],
-      }
-    }
-  }],
+    },
+  ],
   // Auto-fix for unused imports
   'no-unused-vars': 'off',
-  '@typescript-eslint/no-unused-vars': ['error', {
-    varsIgnorePattern: '^_',
-    argsIgnorePattern: '^_'
-  }],
+  '@typescript-eslint/no-unused-vars': [
+    'error',
+    {
+      varsIgnorePattern: '^_',
+      argsIgnorePattern: '^_',
+    },
+  ],
   'unused-imports/no-unused-imports': 'error',
   'unused-imports/no-unused-vars': [
     'error',
@@ -118,21 +139,21 @@ const codeStyleRules = {
       vars: 'all',
       varsIgnorePattern: '^_',
       args: 'after-used',
-      argsIgnorePattern: '^_'
-    }
-  ]
+      argsIgnorePattern: '^_',
+    },
+  ],
 }
 
 const allowDefaultExportFiles = {
   files: ['**/pages/**/*', '**/main.tsx', '**/vite.config.ts'],
   rules: {
-    'no-restricted-exports': 'off'
-  }
+    'no-restricted-exports': 'off',
+  },
 }
 
 export default tseslint.config(
   {
-    ignores: ['node_modules', 'dist', 'public', '*.config.{js,mjs,ts}']
+    ignores: ['node_modules', 'dist', 'public', '*.config.{js,mjs,ts}'],
   },
   {
     files: ['**/*.{ts,tsx}'],
@@ -144,17 +165,17 @@ export default tseslint.config(
       parserOptions: {
         project: './tsconfig.app.json',
         ecmaFeatures: {
-          jsx: true
-        }
+          jsx: true,
+        },
       },
       globals: {
         ...globals.browser,
         React: true,
-        JSX: true
-      }
+        JSX: true,
+      },
     },
     linterOptions: {
-      reportUnusedDisableDirectives: true
+      reportUnusedDisableDirectives: true,
     },
     plugins: {
       react: reactPlugin,
@@ -162,7 +183,7 @@ export default tseslint.config(
       perfectionist,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'unused-imports': unusedImportsPlugin
+      'unused-imports': unusedImportsPlugin,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -173,20 +194,20 @@ export default tseslint.config(
       'func-style': ['error', 'expression'],
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true }
-      ]
+        { allowConstantExport: true },
+      ],
     },
     settings: {
       react: {
-        version: '19'
-      }
-    }
+        version: '19',
+      },
+    },
   },
   {
     files: ['**/components/Shadcn/**/*.{ts,tsx}'],
     rules: {
-      'react/boolean-prop-naming': 'off'
-    }
+      'react/boolean-prop-naming': 'off',
+    },
   },
   allowDefaultExportFiles,
   js.configs.recommended,
