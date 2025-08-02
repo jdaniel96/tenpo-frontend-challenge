@@ -1,4 +1,4 @@
-import { Avatar as SCN_Avatar, AvatarFallback, AvatarImage } from './shadcn'
+import { Avatar as SCN_Avatar, AvatarFallback, AvatarImage } from '../shadcn'
 
 interface AvatarProps {
   alt: string
