@@ -1,4 +1,3 @@
-import { Avatar } from '@/components'
 import {
   Card,
   CardContent,
@@ -11,10 +10,8 @@ import { LoginForm } from './LoginForm'
 
 export const Login = () => {
   return (
-    <Card className="w-full">
+    <Card className="mx-auto w-full max-w-md">
       <CardHeader className="space-y-1 text-center">
-        <Avatar alt="@tempo" src="/tenpo.svg" />
-
         <CardTitle className="text-2xl font-bold">Welcome to Tenpo</CardTitle>
         <CardDescription>
           Enter your credentials to access your account
