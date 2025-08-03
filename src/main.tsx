@@ -2,6 +2,8 @@ import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router'
 
+import { ThemeProvider } from 'next-themes'
+
 import { Loader } from '@/components'
 import { Toaster } from '@/components/shadcn'
 import { AuthProvider } from '@/contexts'
@@ -14,8 +16,10 @@ createRoot(rootElement).render(
   <StrictMode>
     <Suspense fallback={<Loader />}>
       <AuthProvider>
-        <RouterProvider router={router} />
-        <Toaster />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <RouterProvider router={router} />
+          <Toaster />
+        </ThemeProvider>
       </AuthProvider>
     </Suspense>
   </StrictMode>

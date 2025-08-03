@@ -1,10 +1,14 @@
 import { Moon, Sun } from 'lucide-react'
+import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/shadcn'
-import { useTheme } from '@/hooks'
 
 export const ThemeToggle = () => {
-  const { theme, toggleTheme } = useTheme()
+  const { setTheme, theme } = useTheme()
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light')
+  }
 
   return (
     <Button
