@@ -1,23 +1,25 @@
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router'
 
-import { AuthLayout, MainLayout } from '@/components'
+import { PublicLayout, PrivateLayout } from '@/components'
 
 import { privateRoutes } from './private'
 import { protectedLoader } from './protectedLoader'
 import { publicRoutes } from './public'
+import { publicLoader } from './publicLoader'
 
 const ErrorPage = lazy(() => import('@/pages/ErrorPage'))
 
 export const router = createBrowserRouter([
   {
     children: publicRoutes,
-    element: <AuthLayout />,
+    element: <PublicLayout />,
     errorElement: <ErrorPage />,
+    loader: publicLoader,
   },
   {
     children: privateRoutes,
-    element: <MainLayout />,
+    element: <PrivateLayout />,
     errorElement: <ErrorPage />,
     loader: protectedLoader,
   },

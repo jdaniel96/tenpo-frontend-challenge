@@ -14,9 +14,9 @@ export const ThemeToggle = () => {
       variant="ghost"
     >
       {theme === 'light' ? (
-        <Moon className="h-4 w-4" />
+        <Moon className="h-8 w-8" />
       ) : (
-        <Sun className="h-4 w-4" />
+        <Sun className="h-8 w-8" />
       )}
     </Button>
   )

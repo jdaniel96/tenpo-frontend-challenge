@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { type ReactNode, useState } from 'react'
 
 import { Menu, X } from 'lucide-react'
 
@@ -11,7 +11,11 @@ import { Logo } from './Logo'
 import { MobileNavigation } from './MobileNavigation'
 import { RouteTransition } from './RouteTransition'
 
-export const MainLayout = () => {
+interface PrivateLayoutProps {
+  children?: ReactNode
+}
+
+export const PrivateLayout = ({ children }: PrivateLayoutProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const toggleMobileMenu = () => {
@@ -45,7 +49,7 @@ export const MainLayout = () => {
       </header>
 
       <main className="container mx-auto flex min-h-[calc(100vh-4rem)] items-center justify-center p-4">
-        <RouteTransition />
+        {children || <RouteTransition />}
       </main>
     </div>
   )

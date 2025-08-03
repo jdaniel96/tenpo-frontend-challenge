@@ -1,26 +1,31 @@
 import { useForm } from 'react-hook-form'
+import { Navigate } from 'react-router'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 
 import { Button, Form } from '@/components/shadcn'
+import { ROUTES } from '@/consts'
+import { useAuth } from '@/hooks'
 import { loginSchema, type LoginValues } from '@/schemas'
 
 import { EmailFormField } from './EmailFormField'
 import { PasswordFormField } from './PasswordFormField'
 
 export const LoginForm = () => {
+  const { isAuthenticated, isLoggingIn, login } = useAuth()
   const form = useForm<LoginValues>({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(loginSchema),
   })
 
-  const isLoading = form.formState.isSubmitting
+  const isLoading = isLoggingIn || form.formState.isSubmitting
 
   const onSubmit = async (data: LoginValues) => {
-    console.log('onSubmitForm', data)
-    // fake login
+    await login(data.email, data.password)
   }
+
+  if (isAuthenticated) return <Navigate replace to={ROUTES.HOME} />
 
   return (
     <Form {...form}>

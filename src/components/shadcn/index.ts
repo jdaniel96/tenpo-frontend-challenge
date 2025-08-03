@@ -42,3 +42,5 @@ export {
 } from './form'
 
 export { Avatar, AvatarImage, AvatarFallback } from './avatar'
+
+export { Toaster } from './sonner'

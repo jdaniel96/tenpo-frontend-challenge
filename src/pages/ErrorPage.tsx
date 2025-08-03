@@ -1,12 +1,18 @@
-import { type JSX, useEffect } from 'react'
+import { useEffect, type JSX } from 'react'
 import {
-  isRouteErrorResponse,
   useRouteError,
+  useLocation,
   useNavigate,
+  isRouteErrorResponse,
   Link,
 } from 'react-router'
 
 import { AlertTriangle, Ban, ShieldAlert, ServerCrash } from 'lucide-react'
+
+import { PrivateLayout, PublicLayout } from '@/components'
+import { Button } from '@/components/shadcn'
+import { ROUTES } from '@/consts'
+import { useAuth } from '@/hooks'
 
 interface StatusMap {
   icon: JSX.Element
@@ -37,23 +43,53 @@ const STATUS_MESSAGES: Record<number, StatusMap> = {
   },
 }
 
+const ErrorContent = ({
+  children,
+  icon,
+  message,
+  title,
+}: {
+  icon: JSX.Element
+  title: string
+  message: string
+  children?: React.ReactNode
+}) => (
+  <div className="text-foreground flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-4 px-4 text-center">
+    {icon}
+    <h1 className="text-2xl font-bold">{title}</h1>
+    <p className="text-muted-foreground">{message}</p>
+    {children}
+  </div>
+)
+
+const HomeLink = () => (
+  <Link
+    className="bg-primary hover:bg-primary/90 mt-4 inline-block rounded px-4 py-2 text-white"
+    to={ROUTES.HOME}
+  >
+    Back to Home
+  </Link>
+)
+
 const ErrorPage = () => {
   const error = useRouteError()
+  const location = useLocation()
   const navigate = useNavigate()
+  const { isAuthenticated } = useAuth()
 
   useEffect(() => {
-    // Log error for analytics or debugging
     if (import.meta.env.DEV) {
       console.error('[Router Error]', error)
     } else {
-      // TODO: send to monitoring service (e.g., Sentry)
+      // TODO: send to monitoring service
     }
   }, [error])
 
-  // If the error comes from a loader/action/route
+  let content: JSX.Element
+
   if (isRouteErrorResponse(error)) {
     const status = error.status
-    const fallback = {
+    const fallback: StatusMap = {
       icon: <AlertTriangle className="text-muted h-10 w-10" />,
       message: 'Something went wrong.',
       title: 'Error',
@@ -61,38 +97,39 @@ const ErrorPage = () => {
 
     const { icon, message, title } = STATUS_MESSAGES[status] ?? fallback
 
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
-        {icon}
-        <h1 className="text-2xl font-bold">{title}</h1>
-        <p className="text-muted-foreground">{message}</p>
-        <Link
-          className="bg-primary hover:bg-primary/90 mt-4 inline-block rounded px-4 py-2 text-white"
-          to="/"
-        >
-          Back to Home
-        </Link>
-      </div>
+    content = (
+      <ErrorContent icon={icon} message={message} title={title}>
+        <HomeLink />
+      </ErrorContent>
+    )
+  } else if (!error) {
+    content = (
+      <ErrorContent
+        icon={<AlertTriangle className="text-muted-foreground h-10 w-10" />}
+        message={`The page "${location.pathname}" was not found.`}
+        title="404 - Not Found"
+      >
+        <HomeLink />
+      </ErrorContent>
+    )
+  } else {
+    const message =
+      error instanceof Error ? error.message : 'An unexpected error occurred.'
+
+    content = (
+      <ErrorContent
+        icon={<ServerCrash className="text-destructive h-10 w-10" />}
+        message={message}
+        title="Unexpected Error"
+      >
+        <Button onClick={() => navigate(-1)}>Go Back</Button>
+      </ErrorContent>
     )
   }
 
-  // Generic or thrown error (component crash, lazy load fail, etc.)
-  const fallbackMessage =
-    error instanceof Error ? error.message : 'Unknown error occurred'
+  const Layout = isAuthenticated ? PrivateLayout : PublicLayout
 
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
-      <AlertTriangle className="text-muted-foreground h-10 w-10" />
-      <h1 className="text-2xl font-bold">Unexpected Error</h1>
-      <p className="text-muted-foreground">{fallbackMessage}</p>
-      <button
-        className="text-primary mt-4 rounded border px-4 py-2 text-sm hover:underline"
-        onClick={() => navigate(-1)}
-      >
-        Go Back
-      </button>
-    </div>
-  )
+  return <Layout>{content}</Layout>
 }
 
 export default ErrorPage

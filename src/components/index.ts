@@ -1,5 +1,5 @@
 export { Avatar } from './Avatar/Avatar'
 export { Login } from './Login/Login'
-export { MainLayout } from './Layout/MainLayout'
-export { AuthLayout } from './Layout/AuthLayout'
+export { PrivateLayout } from './Layout/PrivateLayout'
+export { PublicLayout } from './Layout/PublicLayout'
 export { Loader } from './Loader/Loader'

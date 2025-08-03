@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router'
 
 import { Loader } from '@/components'
+import { Toaster } from '@/components/shadcn'
 import { AuthProvider } from '@/contexts'
 import { router } from '@/routes'
 
@@ -11,10 +12,11 @@ if (!rootElement) throw new Error('Root element not found!')
 
 createRoot(rootElement).render(
   <StrictMode>
-    <AuthProvider>
-      <Suspense fallback={<Loader />}>
+    <Suspense fallback={<Loader />}>
+      <AuthProvider>
         <RouterProvider router={router} />
-      </Suspense>
-    </AuthProvider>
+        <Toaster />
+      </AuthProvider>
+    </Suspense>
   </StrictMode>
 )
