@@ -2,7 +2,6 @@ import { useEffect, type JSX } from 'react'
 import {
   useRouteError,
   useLocation,
-  useNavigate,
   isRouteErrorResponse,
   Link,
 } from 'react-router'
@@ -10,7 +9,6 @@ import {
 import { AlertTriangle, Ban, ShieldAlert, ServerCrash } from 'lucide-react'
 
 import { PrivateLayout, PublicLayout } from '@/components'
-import { Button } from '@/components/shadcn'
 import { ROUTES } from '@/consts'
 import { useAuth } from '@/hooks'
 
@@ -62,19 +60,9 @@ const ErrorContent = ({
   </div>
 )
 
-const HomeLink = () => (
-  <Link
-    className="bg-primary hover:bg-primary/90 mt-4 inline-block rounded px-4 py-2 text-white"
-    to={ROUTES.HOME}
-  >
-    Back to Home
-  </Link>
-)
-
 const ErrorPage = () => {
   const error = useRouteError()
   const location = useLocation()
-  const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
 
   useEffect(() => {
@@ -86,6 +74,16 @@ const ErrorPage = () => {
   }, [error])
 
   let content: JSX.Element
+
+  const navigationButton = (
+    <Link
+      className="bg-primary hover:bg-primary/90 mt-4 inline-block rounded px-4 py-2 text-white"
+      replace
+      to={isAuthenticated ? ROUTES.HOME : ROUTES.LOGIN}
+    >
+      {isAuthenticated ? 'Back to Home' : 'Go To Login'}
+    </Link>
+  )
 
   if (isRouteErrorResponse(error)) {
     const status = error.status
@@ -99,7 +97,7 @@ const ErrorPage = () => {
 
     content = (
       <ErrorContent icon={icon} message={message} title={title}>
-        <HomeLink />
+        {navigationButton}
       </ErrorContent>
     )
   } else if (!error) {
@@ -109,7 +107,7 @@ const ErrorPage = () => {
         message={`The page "${location.pathname}" was not found.`}
         title="404 - Not Found"
       >
-        <HomeLink />
+        {navigationButton}
       </ErrorContent>
     )
   } else {
@@ -122,7 +120,7 @@ const ErrorPage = () => {
         message={message}
         title="Unexpected Error"
       >
-        <Button onClick={() => navigate(-1)}>Go Back</Button>
+        {navigationButton}
       </ErrorContent>
     )
   }
