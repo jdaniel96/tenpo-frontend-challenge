@@ -64,3 +64,12 @@ export interface RandomUserResponse {
   }
   results: RandomUser[]
 }
+
+export interface MappedRandomUser extends RandomUser {
+  name: {
+    full: string
+    first: string
+    last: string
+    title: string
+  }
+}

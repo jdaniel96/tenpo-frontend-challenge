@@ -67,7 +67,11 @@ const ErrorPage = () => {
 
   useEffect(() => {
     if (import.meta.env.DEV) {
-      console.error('[Router Error]', error)
+      try {
+        console.error('[Router Error]', JSON.stringify(error))
+      } catch {
+        console.error('[Router Error]', String(error))
+      }
     } else {
       // TODO: send to monitoring service
     }
@@ -75,13 +79,18 @@ const ErrorPage = () => {
 
   let content: JSX.Element
 
-  const navigationButton = (
+  const NavigationButton = ({ isRefreshButton = false }) => (
     <Link
       className="bg-primary hover:bg-primary/90 mt-4 inline-block rounded px-4 py-2 text-white"
+      reloadDocument={isRefreshButton}
       replace
-      to={isAuthenticated ? ROUTES.HOME : ROUTES.LOGIN}
+      to={isRefreshButton ? `#` : isAuthenticated ? ROUTES.HOME : ROUTES.LOGIN}
     >
-      {isAuthenticated ? 'Back to Home' : 'Go To Login'}
+      {isRefreshButton
+        ? 'Refresh'
+        : isAuthenticated
+          ? 'Back to Home'
+          : 'Go To Login'}
     </Link>
   )
 
@@ -97,7 +106,7 @@ const ErrorPage = () => {
 
     content = (
       <ErrorContent icon={icon} message={message} title={title}>
-        {navigationButton}
+        <NavigationButton />
       </ErrorContent>
     )
   } else if (!error) {
@@ -107,20 +116,21 @@ const ErrorPage = () => {
         message={`The page "${location.pathname}" was not found.`}
         title="404 - Not Found"
       >
-        {navigationButton}
+        <NavigationButton />
       </ErrorContent>
     )
   } else {
-    const message =
-      error instanceof Error ? error.message : 'An unexpected error occurred.'
+    const defaultMessage =
+      'An unexpected error occurred. Please try again later or contact support.'
+    const message = error instanceof Error ? error.message : defaultMessage
 
     content = (
       <ErrorContent
         icon={<ServerCrash className="text-destructive h-10 w-10" />}
-        message={message}
+        message={import.meta.env.DEV ? message : defaultMessage}
         title="Unexpected Error"
       >
-        {navigationButton}
+        <NavigationButton isRefreshButton />
       </ErrorContent>
     )
   }

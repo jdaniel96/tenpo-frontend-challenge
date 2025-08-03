@@ -44,3 +44,6 @@ export {
 export { Avatar, AvatarImage, AvatarFallback } from './avatar'
 
 export { Toaster } from './sonner'
+
+export { Toggle } from './toggle'
+export { ToggleGroup, ToggleGroupItem } from './toggle-group'
