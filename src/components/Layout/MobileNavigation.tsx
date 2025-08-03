@@ -3,7 +3,7 @@ import { ThemeToggle } from './ThemeToggle'
 
 export const MobileNavigation = () => {
   return (
-    <div className="bg-background supports-[backdrop-filter]:bg-background/60 border-t backdrop-blur md:hidden">
+    <div className="bg-background supports-[backdrop-filter]:bg-background/60 h-[calc(100vh-4rem)] border-t backdrop-blur md:hidden">
       <div className="container mx-auto px-4 py-4">
         <div className="flex flex-col space-y-4">
           <span className="text-muted-foreground text-sm">Welcome, user</span>

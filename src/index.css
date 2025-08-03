@@ -110,3 +110,49 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
+
+/* fade (used for "PUSH and REPLACE Navigation") */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+/* fade-back (used for "POP Navigation") */
+.fade-back-enter {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.fade-back-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+.fade-back-exit {
+  opacity: 1;
+}
+.fade-back-exit-active {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}

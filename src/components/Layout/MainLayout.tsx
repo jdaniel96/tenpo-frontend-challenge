@@ -9,12 +9,9 @@ import { Button } from '@/components/shadcn'
 import { DesktopNavigation } from './DesktopNavigation'
 import { Logo } from './Logo'
 import { MobileNavigation } from './MobileNavigation'
+import { RouteTransition } from './RouteTransition'
 
-interface MainLayoutProps {
-  children: React.ReactNode
-}
-
-export const MainLayout = ({ children }: MainLayoutProps) => {
+export const MainLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const toggleMobileMenu = () => {
@@ -48,7 +45,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       </header>
 
       <main className="container mx-auto flex min-h-[calc(100vh-4rem)] items-center justify-center p-4">
-        {children}
+        <RouteTransition />
       </main>
     </div>
   )

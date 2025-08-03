@@ -1,13 +1,20 @@
-import { StrictMode } from 'react'
+import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
+import { RouterProvider } from 'react-router'
 
-import { App } from './App.tsx'
+import { Loader } from '@/components'
+import { AuthProvider } from '@/contexts'
+import { router } from '@/routes'
 
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found!')
 
 createRoot(rootElement).render(
   <StrictMode>
-    <App />
+    <AuthProvider>
+      <Suspense fallback={<Loader />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </AuthProvider>
   </StrictMode>
 )
