@@ -1,48 +1,60 @@
-import { Mail, Phone, MapPin, Calendar } from 'lucide-react'
+import { Calendar, Mail, MapPin, Phone } from 'lucide-react'
 
 import type { MappedRandomUser } from '@/types'
 
-import { Badge, Card } from '@/components/shadcn'
+import { Avatar } from '@/components'
+import { Badge, Card, CardContent } from '@/components/shadcn'
 
 export const UserCard = ({ user }: { user: MappedRandomUser }) => {
   return (
-    <Card className="flex flex-col gap-2 p-4 text-center">
-      <div className="mx-auto flex flex-col items-center">
-        <img
-          alt={user.name.first}
-          className="mb-2 h-16 w-16 rounded-full"
-          src={user.picture.large}
-        />
-        <span className="bg-muted rounded-full px-2 text-xs font-medium">
-          {user.dob.age}
-        </span>
-      </div>
+    <Card className="h-full w-full max-w-xs transition-all hover:shadow-lg">
+      <CardContent className="p-4">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="relative">
+            <Avatar
+              alt={user.name.full}
+              className="h-20 w-20"
+              src={user.picture.large}
+            />
+            <Badge
+              className="absolute -right-1 -bottom-1 text-xs"
+              variant="secondary"
+            >
+              {user.dob.age}
+            </Badge>
+          </div>
 
-      <div className="space-y-1">
-        <h3 className="text-base font-semibold">{user.name.full}</h3>
-        <p className="text-muted-foreground text-sm">{user.gender}</p>
+          <div className="text-center">
+            <h3 className="text-foreground font-semibold">{user.name.full}</h3>
+            <p className="text-muted-foreground text-sm capitalize">
+              {user.gender}
+            </p>
+          </div>
 
-        <div className="mt-2 space-y-1 text-left text-sm">
-          <p className="flex items-center gap-2">
-            <Mail className="h-4 w-4" />
-            {user.email}
-          </p>
-          <p className="flex items-center gap-2">
-            <Phone className="h-4 w-4" />
-            {user.phone}
-          </p>
-          <p className="flex items-center gap-2">
-            <MapPin className="h-4 w-4" />
-            {user.location.city}, {user.location.state}, {user.location.country}
-          </p>
-          <p className="flex items-center gap-2">
-            <Calendar className="h-4 w-4" />
-            Born {new Date(user.dob.date).toLocaleDateString()}
-          </p>
+          <div className="w-full space-y-2 text-sm">
+            <div className="text-muted-foreground flex items-center space-x-2">
+              <Mail className="h-4 w-4 flex-shrink-0" />
+              <span className="truncate">{user.email}</span>
+            </div>
+            <div className="text-muted-foreground flex items-center space-x-2">
+              <Phone className="h-4 w-4 flex-shrink-0" />
+              <span>{user.phone}</span>
+            </div>
+            <div className="text-muted-foreground flex items-center space-x-2">
+              <MapPin className="h-4 w-4 flex-shrink-0" />
+              <span className="truncate">{user.address}</span>
+            </div>
+            <div className="text-muted-foreground flex items-center space-x-2">
+              <Calendar className="h-4 w-4 flex-shrink-0" />
+              <span>Born {new Date(user.dob.date).toLocaleDateString()}</span>
+            </div>
+          </div>
+
+          <Badge className="text-xs" variant="outline">
+            {user.nat}
+          </Badge>
         </div>
-      </div>
-
-      <Badge className="mt-2">{user.nat}</Badge>
+      </CardContent>
     </Card>
   )
 }

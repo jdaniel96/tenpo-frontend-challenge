@@ -1,4 +1,6 @@
-import type { RandomUser } from '@/types'
+import { Search, Filter } from 'lucide-react'
+
+import type { MappedRandomUser } from '@/types'
 
 import {
   Input,
@@ -6,6 +8,8 @@ import {
   SelectTrigger,
   SelectContent,
   SelectItem,
+  SelectValue,
+  Button,
 } from '@/components/shadcn'
 
 interface Props {
@@ -15,7 +19,7 @@ interface Props {
   onGender: (val: string | null) => void
   onSearch: (val: string) => void
   search: string
-  users: RandomUser[]
+  users: MappedRandomUser[]
 }
 
 export const Filters = ({
@@ -30,24 +34,26 @@ export const Filters = ({
   const countries = Array.from(
     new Set(users.map((user) => user.location.country))
   ).sort()
-
   const genders = ['male', 'female']
 
   return (
-    <div className="flex flex-wrap gap-2">
-      <Input
-        className="max-w-xs"
-        onChange={(e) => onSearch(e.target.value)}
-        placeholder="Search users..."
-        value={search}
-      />
+    <div className="flex flex-wrap gap-4">
+      <div className="relative">
+        <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+        <Input
+          className="pl-10"
+          onChange={(e) => onSearch(e.target.value)}
+          placeholder="Search users..."
+          value={search}
+        />
+      </div>
 
       <Select
         onValueChange={(val) => onGender(val === 'all' ? null : val)}
         value={gender ?? 'all'}
       >
-        <SelectTrigger className="w-[140px]">
-          {gender ?? 'All Genders'}
+        <SelectTrigger>
+          <SelectValue placeholder="Gender" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All Genders</SelectItem>
@@ -63,8 +69,8 @@ export const Filters = ({
         onValueChange={(val) => onCountry(val === 'all' ? null : val)}
         value={country ?? 'all'}
       >
-        <SelectTrigger className="w-[180px]">
-          {country ?? 'All Countries'}
+        <SelectTrigger>
+          <SelectValue placeholder="Country" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All Countries</SelectItem>
@@ -75,6 +81,18 @@ export const Filters = ({
           ))}
         </SelectContent>
       </Select>
+
+      <Button
+        onClick={() => {
+          onSearch('')
+          onGender(null)
+          onCountry(null)
+        }}
+        variant="outline"
+      >
+        <Filter className="mr-2 h-4 w-4" />
+        Clear Filters
+      </Button>
     </div>
   )
 }

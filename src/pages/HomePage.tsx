@@ -23,8 +23,9 @@ const HomePage = () => {
             Manage and explore user data from around the world
           </p>
         </div>
-        <Button onClick={refetch} size="sm" variant="outline">
-          <RefreshCw className="mr-2 h-4 w-4" />
+
+        <Button onClick={refetch} size="sm">
+          <RefreshCw />
           Refresh Data
         </Button>
       </div>

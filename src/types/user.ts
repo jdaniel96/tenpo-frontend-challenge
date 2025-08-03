@@ -66,6 +66,7 @@ export interface RandomUserResponse {
 }
 
 export interface MappedRandomUser extends RandomUser {
+  address: string
   name: {
     full: string
     first: string

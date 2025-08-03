@@ -24,6 +24,7 @@ export const useUsers = (count = 2000): UseUsersResult => {
       const data = await getUsersService(count)
       const formatted = data.results.map((user) => ({
         ...user,
+        address: `${user.location.city}, ${user.location.state}, ${user.location.country}`,
         name: {
           ...user.name,
           full: `${user.name.title} ${user.name.first} ${user.name.last}`,

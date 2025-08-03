@@ -1,11 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useState, useMemo } from 'react'
 
 import type { MappedRandomUser } from '@/types'
 
-import { Button } from '@/components/shadcn'
-
-import { EmptyState } from './EmptyState'
 import { Filters } from './Filters'
+import { Pagination } from './Pagination'
 import { UserGrid } from './UserGrid'
 import { ViewModeToggle } from './ViewModeToggle'
 
@@ -13,11 +11,14 @@ interface Props {
   users: MappedRandomUser[]
 }
 
+const ITEMS_PER_PAGE = 12
+
 export const UsersDashboard = ({ users }: Props) => {
   const [search, setSearch] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [view, setView] = useState<'grid' | 'list'>('grid')
   const [gender, setGender] = useState<string | null>(null)
   const [country, setCountry] = useState<string | null>(null)
-  const [view, setView] = useState<'grid' | 'list'>('grid')
 
   const filteredUsers = useMemo(() => {
     return users.filter((user) => {
@@ -26,42 +27,55 @@ export const UsersDashboard = ({ users }: Props) => {
         user.email.toLowerCase().includes(search.toLowerCase())
       const matchGender = !gender || user.gender === gender
       const matchCountry = !country || user.location.country === country
+
       return matchSearch && matchGender && matchCountry
     })
-  }, [search, gender, country, users])
+  }, [users, search, gender, country])
+
+  const paginatedUsers = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE
+    const end = start + ITEMS_PER_PAGE
+
+    return filteredUsers.slice(start, end)
+  }, [filteredUsers, currentPage])
+
+  const totalPages = Math.ceil(filteredUsers.length / ITEMS_PER_PAGE)
 
   return (
-    <div className="container space-y-6 py-8">
-      <div className="flex flex-wrap items-center gap-4">
-        <ViewModeToggle setView={setView} view={view} />
-        <Filters
-          country={country}
-          gender={gender}
-          onCountry={setCountry}
-          onGender={setGender}
-          onSearch={setSearch}
-          search={search}
-          users={users}
-        />
-        <Button
-          onClick={() => {
-            setSearch('')
-            setGender(null)
-            setCountry(null)
-          }}
-          variant="outline"
-        >
-          Clear Filters
-        </Button>
+    <>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <h2 className="text-2xl font-bold">
+          Users ({filteredUsers.length.toLocaleString()})
+        </h2>
+        <ViewModeToggle onChange={setView} viewMode={view} />
       </div>
 
-      <h2 className="text-lg font-semibold">Users ({filteredUsers.length})</h2>
+      <Filters
+        country={country}
+        gender={gender}
+        onCountry={setCountry}
+        onGender={setGender}
+        onSearch={setSearch}
+        search={search}
+        users={filteredUsers}
+      />
 
-      {filteredUsers.length === 0 ? (
-        <EmptyState />
-      ) : (
-        <UserGrid users={filteredUsers} view={view} />
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          totalPages={totalPages}
+        />
       )}
-    </div>
+
+      <UserGrid users={paginatedUsers} viewMode={view} />
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          totalPages={totalPages}
+        />
+      )}
+    </>
   )
 }

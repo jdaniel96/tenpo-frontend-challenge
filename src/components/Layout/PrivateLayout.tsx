@@ -48,7 +48,7 @@ export const PrivateLayout = ({ children }: PrivateLayoutProps) => {
         {isMobileMenuOpen && <MobileNavigation />}
       </header>
 
-      <main className="container mx-auto flex min-h-[calc(100vh-4rem)] items-center justify-center p-4">
+      <main className="container mx-auto flex min-h-[calc(100vh-4rem)] justify-center p-4">
         {children || <RouteTransition />}
       </main>
     </div>
