@@ -12,7 +12,7 @@ const HomePage = () => {
     return <div className="py-20 text-center">Error: {error.message}</div>
 
   return (
-    <div className="container space-y-6 py-8">
+    <div className="container space-y-6 py-4 sm:py-8">
       <title>Tenpo | Home</title>
       <meta content="Home page" name="description" />
 

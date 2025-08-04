@@ -5,8 +5,6 @@ import { Outlet } from 'react-router'
 
 import { Menu, X } from 'lucide-react'
 
-import { Button } from '@/components/shadcn'
-
 import { DesktopNavigation } from './DesktopNavigation'
 import { Logo } from './Logo'
 import { MobileNavigation } from './MobileNavigation'
@@ -30,19 +28,13 @@ export const PrivateLayout = ({ children }: PrivateLayoutProps) => {
           <DesktopNavigation />
 
           {/* Mobile Menu Button */}
-          <Button
+          <button
             aria-label="Toggle menu"
             className="text-foreground md:hidden"
             onClick={toggleMobileMenu}
-            size="icon"
-            variant="ghost"
           >
-            {isMobileMenuOpen ? (
-              <X className="h-4 w-4" />
-            ) : (
-              <Menu className="h-4 w-4" />
-            )}
-          </Button>
+            {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
         </div>
 
         {isMobileMenuOpen && <MobileNavigation />}

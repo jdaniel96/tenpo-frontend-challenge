@@ -18,7 +18,7 @@ export const PublicLayout = ({ children }: PublicLayoutProps) => {
         </div>
       </header>
 
-      <main className="container mx-auto flex min-h-[calc(100vh-4rem)] justify-center p-4">
+      <main className="container mx-auto flex min-h-[calc(100vh-4rem)] w-full justify-center p-4">
         {children || <Outlet />}
       </main>
     </div>
