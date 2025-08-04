@@ -12,14 +12,16 @@ export const LogoutButton = () => {
   if (!isAuthenticated) return <Navigate replace to={ROUTES.LOGIN} />
 
   return (
-    <Button
-      className="text-destructive hover:text-destructive justify-start"
-      onClick={logout}
-      size="sm"
-      variant="ghost"
-    >
-      <LogOut className="mr-2 h-4 w-4" />
-      Logout
-    </Button>
+    <div className="-ml-2 md:-ml-0">
+      <Button
+        className="text-destructive hover:text-destructive justify-start"
+        onClick={logout}
+        size="sm"
+        variant="ghost"
+      >
+        <LogOut className="mr-2 h-4 w-4" />
+        Logout
+      </Button>
+    </div>
   )
 }

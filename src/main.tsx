@@ -14,7 +14,9 @@ if (!rootElement) throw new Error('Root element not found!')
 
 createRoot(rootElement).render(
   <StrictMode>
-    <Suspense fallback={<Loader />}>
+    <Suspense
+      fallback={<Loader message="Please wait while we load the data." />}
+    >
       <AuthProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <RouterProvider router={router} />

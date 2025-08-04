@@ -1,8 +1,6 @@
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
-import { Button } from '@/components/shadcn'
-
 export const ThemeToggle = () => {
   const { setTheme, theme } = useTheme()
 
@@ -11,17 +9,12 @@ export const ThemeToggle = () => {
   }
 
   return (
-    <Button
+    <button
       aria-label="Theme toggle"
+      className="cursor-pointer p-2"
       onClick={toggleTheme}
-      size="icon"
-      variant="ghost"
     >
-      {theme === 'light' ? (
-        <Moon className="h-8 w-8" />
-      ) : (
-        <Sun className="h-8 w-8" />
-      )}
-    </Button>
+      {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+    </button>
   )
 }

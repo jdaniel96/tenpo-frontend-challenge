@@ -38,7 +38,7 @@ apiClient.interceptors.request.use(async (config) => {
   if (config.url === API_PATHS.LOGIN && config.method === 'post') {
     const { email, password } = config.data as LoginValues
 
-    await new Promise((res) => setTimeout(res, 1000))
+    await new Promise((res) => setTimeout(res, 2000))
 
     if (!email || !password) {
       throw new Error('Email and password are required!')

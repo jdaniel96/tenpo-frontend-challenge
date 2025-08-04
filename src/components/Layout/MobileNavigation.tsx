@@ -10,7 +10,7 @@ export const MobileNavigation = () => {
     <div className="bg-background supports-[backdrop-filter]:bg-background/60 h-[calc(100vh-4rem)] border-t backdrop-blur md:hidden">
       <div className="container mx-auto px-4 py-4">
         <div className="flex flex-col space-y-4">
-          <span className="text-muted-foreground text-sm">
+          <span className="text-muted-foreground">
             Welcome, {user?.name || 'user'}
           </span>
           <div className="text-foreground flex items-center justify-between">

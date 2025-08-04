@@ -33,11 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setTokenData(response.token)
       setUserData(response.user)
     } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : 'Login failed! Please try again.'
-      )
+      toast.error('Login failed! Please try again.')
       throw error
     } finally {
       setIsLoggingIn(false)

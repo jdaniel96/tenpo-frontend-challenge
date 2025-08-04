@@ -1,15 +1,27 @@
 import { RefreshCw, AlertTriangle } from 'lucide-react'
 
-import { UsersDashboard } from '@/components'
+import { Loader, RenderIf, UsersDashboard } from '@/components'
 import { Button } from '@/components/shadcn'
+import { API_PATHS } from '@/consts'
 import { useUsers } from '@/hooks'
 
-const HomePage = () => {
-  const { error, isLoading, refetch, users } = useUsers()
+const ErrorMessage = (
+  <div className="text-muted-foreground flex flex-col items-center justify-center py-20 text-center">
+    <AlertTriangle className="text-destructive mb-4 h-10 w-10" />
+    <h2 className="text-lg font-semibold">Error fetching users</h2>
+    <p className="text-sm">Try refreshing the data or contact support.</p>
+  </div>
+)
 
-  if (isLoading) return <div className="py-20 text-center">Loading...</div>
-  if (error)
-    return <div className="py-20 text-center">Error: {error.message}</div>
+const EmptyStateMessage = (
+  <div className="text-muted-foreground flex flex-col items-center justify-center py-20 text-center">
+    <AlertTriangle className="text-muted-foreground mb-4 h-10 w-10" />
+    <h2 className="text-lg font-semibold">No users found</h2>
+    <p className="text-sm">Try refreshing the data.</p>
+  </div>
+)
+const HomePage = () => {
+  const { isError, isLoading, refetch, users } = useUsers()
 
   return (
     <div className="container space-y-6 py-4 sm:py-8">
@@ -30,15 +42,20 @@ const HomePage = () => {
         </Button>
       </div>
 
-      {users.length > 0 ? (
+      <RenderIf shouldRender={isLoading}>
+        <Loader
+          message={`Fetching users from ${API_PATHS.USERS}`}
+          title="Loading users..."
+        />
+      </RenderIf>
+      <RenderIf shouldRender={isError}>{ErrorMessage}</RenderIf>
+      <RenderIf shouldRender={!isLoading && !isError && users.length === 0}>
+        {EmptyStateMessage}
+      </RenderIf>
+
+      <RenderIf shouldRender={!isLoading && !isError && users.length > 0}>
         <UsersDashboard users={users} />
-      ) : (
-        <div className="text-muted-foreground flex flex-col items-center justify-center py-20 text-center">
-          <AlertTriangle className="text-muted-foreground mb-4 h-10 w-10" />
-          <h2 className="text-lg font-semibold">No users found</h2>
-          <p className="text-sm">Try refreshing the data.</p>
-        </div>
-      )}
+      </RenderIf>
     </div>
   )
 }

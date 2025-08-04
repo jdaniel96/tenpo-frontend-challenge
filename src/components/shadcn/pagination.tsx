@@ -65,7 +65,8 @@ const PaginationLink = ({
         }),
         className,
         {
-          'cursor-not-normal opacity-50 hover:bg-transparent': isDisabled,
+          'cursor-normal pointer-events-none opacity-50 hover:bg-transparent':
+            isDisabled,
         }
       )}
       data-active={isActive}
@@ -87,7 +88,7 @@ const PaginationPrevious = ({
       {...props}
     >
       <ChevronLeftIcon style={{ height: '22px', width: '22px' }} />
-      <span className="hidden sm:block">Previous</span>
+      <span className="hidden sm:block">Prev</span>
     </PaginationLink>
   )
 }

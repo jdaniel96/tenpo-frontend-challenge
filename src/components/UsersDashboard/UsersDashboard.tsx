@@ -11,7 +11,7 @@ interface Props {
   users: MappedRandomUser[]
 }
 
-const ITEMS_PER_PAGE = 12
+const ITEMS_PER_PAGE = 15
 
 export const UsersDashboard = ({ users }: Props) => {
   const [searchValue, setSearchValue] = useState('')
