@@ -1,6 +1,10 @@
+import { Link } from 'react-router'
+
+import { ROUTES } from '@/consts'
+
 export const Logo = () => {
   return (
-    <a aria-current="page" className="inline-block" href="/">
+    <Link aria-current="page" className="inline-block" to={ROUTES.HOME}>
       <div className="block rounded bg-black p-2 md:hidden dark:bg-none">
         <img
           alt="Tenpo logo mobile"
@@ -15,6 +19,6 @@ export const Logo = () => {
         loading="lazy"
         src="https://cdn.prod.website-files.com/647f4d1c528358bdb9d8ef3e/64e3a0a372c75160c61be423_tenpo.svg"
       />
-    </a>
+    </Link>
   )
 }
