@@ -8,7 +8,12 @@ import {
 
 import { LoginForm } from './LoginForm'
 
-export const Login = () => {
+interface LoginProps {
+  isLoading: boolean
+  onLogin: (email: string, password: string) => void
+}
+
+export const Login = (props: LoginProps) => {
   return (
     <Card className="mx-auto w-full max-w-md">
       <CardHeader className="space-y-1 text-center">
@@ -19,7 +24,7 @@ export const Login = () => {
       </CardHeader>
 
       <CardContent>
-        <LoginForm />
+        <LoginForm {...props} />
 
         <div className="text-muted-foreground mt-6 text-center text-sm">
           <p>Demo credentials:</p>

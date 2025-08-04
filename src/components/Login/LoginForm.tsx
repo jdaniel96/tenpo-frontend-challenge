@@ -1,41 +1,38 @@
 import { useForm } from 'react-hook-form'
-import { Navigate } from 'react-router'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 
 import { Button, Form } from '@/components/shadcn'
-import { ROUTES } from '@/consts'
-import { useAuth } from '@/hooks'
 import { loginSchema, type LoginValues } from '@/schemas'
 
 import { EmailFormField } from './EmailFormField'
 import { PasswordFormField } from './PasswordFormField'
 
-export const LoginForm = () => {
-  const { isAuthenticated, isLoggingIn, login } = useAuth()
+interface LoginFormProps {
+  isLoading: boolean
+  onLogin: (email: string, password: string) => void
+}
+
+export const LoginForm = ({ isLoading, onLogin }: LoginFormProps) => {
   const form = useForm<LoginValues>({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(loginSchema),
   })
 
-  const isLoading = isLoggingIn || form.formState.isSubmitting
+  const _isLoading = isLoading || form.formState.isSubmitting
 
-  const onSubmit = async (data: LoginValues) => {
-    await login(data.email, data.password)
-  }
-
-  if (isAuthenticated) return <Navigate replace to={ROUTES.HOME} />
+  const onSubmit = (data: LoginValues) => onLogin(data.email, data.password)
 
   return (
     <Form {...form}>
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-        <EmailFormField form={form} isDisabled={isLoading} />
+        <EmailFormField form={form} isDisabled={_isLoading} />
 
-        <PasswordFormField form={form} isDisabled={isLoading} />
+        <PasswordFormField form={form} isDisabled={_isLoading} />
 
-        <Button className="w-full" disabled={isLoading} type="submit">
-          {isLoading ? (
+        <Button className="w-full" disabled={_isLoading} type="submit">
+          {_isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Signing in...
