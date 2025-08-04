@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
+import { Outlet } from 'react-router'
 
 import { Logo } from './Logo'
-import { RouteTransition } from './RouteTransition'
 import { ThemeToggle } from './ThemeToggle'
 
 interface PublicLayoutProps {
@@ -19,7 +19,7 @@ export const PublicLayout = ({ children }: PublicLayoutProps) => {
       </header>
 
       <main className="container mx-auto flex min-h-[calc(100vh-4rem)] justify-center p-4">
-        {children || <RouteTransition />}
+        {children || <Outlet />}
       </main>
     </div>
   )

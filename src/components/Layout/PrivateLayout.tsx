@@ -1,6 +1,7 @@
 'use client'
 
 import { type ReactNode, useState } from 'react'
+import { Outlet } from 'react-router'
 
 import { Menu, X } from 'lucide-react'
 
@@ -9,7 +10,6 @@ import { Button } from '@/components/shadcn'
 import { DesktopNavigation } from './DesktopNavigation'
 import { Logo } from './Logo'
 import { MobileNavigation } from './MobileNavigation'
-import { RouteTransition } from './RouteTransition'
 
 interface PrivateLayoutProps {
   children?: ReactNode
@@ -49,7 +49,7 @@ export const PrivateLayout = ({ children }: PrivateLayoutProps) => {
       </header>
 
       <main className="container mx-auto flex min-h-[calc(100vh-4rem)] justify-center p-4">
-        {children || <RouteTransition />}
+        {children || <Outlet />}
       </main>
     </div>
   )
