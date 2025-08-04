@@ -27,10 +27,9 @@ export const PrivateLayout = ({ children }: PrivateLayoutProps) => {
           <Logo />
           <DesktopNavigation />
 
-          {/* Mobile Menu Button */}
           <button
             aria-label="Toggle menu"
-            className="text-foreground md:hidden"
+            className="text-foreground cursor-pointer md:hidden"
             onClick={toggleMobileMenu}
           >
             {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
