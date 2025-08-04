@@ -59,7 +59,7 @@ export const Filters = ({
           <SelectItem value="all">All Genders</SelectItem>
           {genders.map((gender) => (
             <SelectItem className="capitalize" key={gender} value={gender}>
-              {gender}
+              {gender.charAt(0).toUpperCase() + gender.slice(1)}
             </SelectItem>
           ))}
         </SelectContent>
