@@ -56,6 +56,12 @@ pnpm dev
 
 ---
 
+## 🏗️ Project Architecture
+
+For a detailed explanation of the project's architecture, patterns, and design decisions, please refer to the [ARCHITECTURE.md](ARCHITECTURE.md) file.
+
+---
+
 ## 📌 User List Justification
 
 While all 2000 users are initially loaded from the API, frontend pagination is implemented for performance and user experience. This technique prevents DOM overload from too many simultaneously rendered elements, improves scrolling, and maintains a smooth experience.
@@ -133,6 +139,12 @@ pnpm dev
 | `pnpm pretty`     | Aplica Prettier al código.                           |
 | `pnpm check-code` | Corre lint, type-check y prettier.                   |
 | `pnpm prepare`    | Configura Husky para git hooks.                      |
+
+---
+
+## 🏗️ Arquitectura del Proyecto
+
+Para una explicación detallada de la arquitectura del proyecto, patrones y decisiones de diseño, consulta el archivo [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ---
 
