@@ -7,8 +7,8 @@ import { Badge, Card, CardContent } from '@/components/shadcn'
 
 export const UserCard = ({ user }: { user: MappedRandomUser }) => {
   return (
-    <Card className="h-full w-full max-w-xs transition-all hover:shadow-lg">
-      <CardContent className="p-4">
+    <Card className="h-full w-full transition-all hover:shadow-lg">
+      <CardContent>
         <div className="flex flex-col items-center space-y-4">
           <div className="relative">
             <Avatar

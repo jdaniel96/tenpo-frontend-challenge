@@ -7,9 +7,7 @@ import { API_PATHS, ROUTES } from '@/consts'
 
 import { getToken, clearAll } from './tokenStorage'
 
-export const apiClient = axios.create({
-  timeout: 10000, // 10 seconds
-})
+export const apiClient = axios.create()
 
 // Request interceptor to attach token
 apiClient.interceptors.request.use(

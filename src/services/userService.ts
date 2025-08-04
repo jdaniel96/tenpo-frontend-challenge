@@ -6,7 +6,7 @@ import { API_PATHS } from '@/consts'
 export const getUsersService = async (
   results = 20
 ): Promise<RandomUserResponse> => {
-  const URL = `${API_PATHS.USERS}/?results=${results}`
+  const URL = `${API_PATHS.USERS}/?results=${results}&seed=tenpo`
   const response = await apiClient.get<RandomUserResponse>(URL)
 
   return response.data

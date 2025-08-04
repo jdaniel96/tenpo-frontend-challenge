@@ -13,22 +13,22 @@ import {
 } from '@/components/shadcn'
 
 interface Props {
-  country: string | null
-  gender: string | null
-  onCountry: (val: string | null) => void
-  onGender: (val: string | null) => void
   onSearch: (val: string) => void
-  search: string
+  onUpdateCountry: (val: string | null) => void
+  onUpdateGender: (val: string | null) => void
+  searchValue: string
+  selectedCountry: string | null
+  selectedGender: string | null
   users: MappedRandomUser[]
 }
 
 export const Filters = ({
-  country,
-  gender,
-  onCountry,
-  onGender,
   onSearch,
-  search,
+  onUpdateCountry,
+  onUpdateGender,
+  searchValue,
+  selectedCountry,
+  selectedGender,
   users,
 }: Props) => {
   const countries = Array.from(
@@ -44,39 +44,39 @@ export const Filters = ({
           className="pl-10"
           onChange={(e) => onSearch(e.target.value)}
           placeholder="Search users..."
-          value={search}
+          value={searchValue}
         />
       </div>
 
       <Select
-        onValueChange={(val) => onGender(val === 'all' ? null : val)}
-        value={gender ?? 'all'}
+        onValueChange={(val) => onUpdateGender(val === 'all' ? null : val)}
+        value={selectedGender ?? 'all'}
       >
         <SelectTrigger>
           <SelectValue placeholder="Gender" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All Genders</SelectItem>
-          {genders.map((g) => (
-            <SelectItem key={g} value={g}>
-              {g}
+          {genders.map((gender) => (
+            <SelectItem className="capitalize" key={gender} value={gender}>
+              {gender}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
 
       <Select
-        onValueChange={(val) => onCountry(val === 'all' ? null : val)}
-        value={country ?? 'all'}
+        onValueChange={(val) => onUpdateCountry(val === 'all' ? null : val)}
+        value={selectedCountry ?? 'all'}
       >
         <SelectTrigger>
           <SelectValue placeholder="Country" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All Countries</SelectItem>
-          {countries.map((c) => (
-            <SelectItem key={c} value={c}>
-              {c}
+          {countries.map((country) => (
+            <SelectItem key={country} value={country}>
+              {country}
             </SelectItem>
           ))}
         </SelectContent>
@@ -85,10 +85,9 @@ export const Filters = ({
       <Button
         onClick={() => {
           onSearch('')
-          onGender(null)
-          onCountry(null)
+          onUpdateGender(null)
+          onUpdateCountry(null)
         }}
-        variant="outline"
       >
         <Filter className="mr-2 h-4 w-4" />
         Clear Filters

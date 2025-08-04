@@ -24,8 +24,8 @@ const HomePage = () => {
           </p>
         </div>
 
-        <Button onClick={refetch} size="sm">
-          <RefreshCw />
+        <Button onClick={refetch}>
+          <RefreshCw className="mr-2 h-4 w-4" />
           Refresh Data
         </Button>
       </div>

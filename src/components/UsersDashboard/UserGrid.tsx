@@ -17,7 +17,7 @@ export const UserGrid = ({ users, viewMode }: Props) => {
   return (
     <div className="w-full space-y-6">
       {viewMode === 'grid' ? (
-        <div className="grid w-full place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(280px,1fr))] place-items-center gap-4">
           {users.map((user) => (
             <UserCard key={user.login.uuid} user={user} />
           ))}
